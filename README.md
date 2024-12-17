@@ -33,11 +33,11 @@ Like [Greedy](#greedy) and [Safe](#safe), this player shoots the opponent if the
 ### Random
 This player will flip a coin and shoot the opponent if the coin lands on heads, shooting itself otherwise.
 
-### Risky/Suicidal
-Opposite of [Scared](#scaredsuper-safe). This player will always shoot itself until it is sure that the gun only contains live shells.
+### Risky
+Opposite of [Scared](#scared). This player will always shoot itself until it is sure that the gun only contains live shells.
 
-### Scared/Super-Safe
-Opposite of [Risky](#riskysuicidal) This player will always shoot the opponent until it is sure that the gun only contains blank shells.
+### Scared
+Opposite of [Risky](#risky). This player will always shoot the opponent until it is sure that the gun only contains blank shells.
 
 ## Experiments to Run
 The following experiments will be run against every single pair of strategies outlined above. The experiment will continue for a fixed number of trials.
