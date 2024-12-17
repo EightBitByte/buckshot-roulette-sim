@@ -2,6 +2,9 @@
 
 Running experiments on different algorithms to play the game [Buckshot Roulette](https://store.steampowered.com/app/2835570/Buckshot_Roulette/).
 
+## Basic Game Rules
+Two players take turns shooting the shotgun at themselves or at their opponent. The shotgun is loaded with blank and live shells. When the shotgun runs out of shells, it is reloaded with a new load of shells. Whomever a player shoots with a live shell takes a point of damage. Blank shells deal no damage. If a player chooses to fire upon themself and a blank is loaded, they do not end their turn. If a player fires a live shell *regardless of the target*, or fires a blank at the opponent, the shooter ends their turn. The game ends when a player has no more health points left, and the player left standing wins.
+
 
 ## Experimental Variables
 There are a few different variables that we can fix or change to influence how the outcomes of the games go.
@@ -22,7 +25,7 @@ There are a few different variables that we can fix or change to influence how t
 Each simulated player adopts a different strategy. Those implemented are highlighted below:
 
 ### Greedy
-This player shoots the opponent if the shell in the chamber is more likely to be live. When the odds are even (50:50), this player will shoot itself to keep control of the gun (if the current shell is blank).
+This player shoots the opponent if the shell in the chamber is more likely to be live. When the odds are even (50:50), this player will shoot itself in an effort to keep control of the gun (if the current shell is blank).
 
 ### Safe
 Like [Greedy](#greedy), this player shoots the opponent if the shell in the chamber is more likely to be live. When the odds are even (50:50), this player will shoot the other player in effort to avoid shooting itself.
