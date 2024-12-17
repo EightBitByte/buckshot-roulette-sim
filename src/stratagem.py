@@ -3,9 +3,22 @@
 # Defines stratagems to play the game.
 from abc import ABC, abstractmethod
 from enum import Enum
-from game import GameState
 from random import randint
+from dataclasses import dataclass
 
+@dataclass
+class GameState:
+    """Represents the state of the game (bullets remaining, items, etc.)"""
+    blank_shells: int
+    live_shells: int
+
+
+class Outcome(Enum):
+    """Represents an outcome from any given move."""
+    SHOOT_SELF_WITH_BLANK = 0
+    SHOOT_SELF_WITH_LIVE = 1
+    SHOOT_OPPO_WITH_BLANK = 2
+    SHOOT_OPPO_WITH_LIVE = 3
 
 class Move(Enum):
     """Represents a possible move by a stratagem."""
@@ -23,7 +36,7 @@ class Greedy(Stratagem):
     """
     This player shoots the opponent if the shell in the chamber is more likely 
     to be live. When the odds are even (50:50), this player will shoot itself 
-    to keep control of the gun (if the current shell is blank).
+    in an effort to keep control of the gun (if the current shell is blank).
     """
 
     def get_move(self, game_state: GameState) -> Move:
