@@ -5,6 +5,9 @@ Running experiments on different algorithms to play the game [Buckshot Roulette]
 ## Basic Game Rules
 Two players take turns shooting the shotgun at themselves or at their opponent. The shotgun is loaded with blank and live shells. When the shotgun runs out of shells, it is reloaded with a new load of shells. Whomever a player shoots with a live shell takes a point of damage. Blank shells deal no damage. If a player chooses to fire upon themself and a blank is loaded, they do not end their turn. If a player fires a live shell *regardless of the target*, or fires a blank at the opponent, the shooter ends their turn. The game ends when a player has no more health points left, and the player left standing wins.
 
+## About This Repository and How to Replicate
+All of the source code used to gather data is defined in `src`. More specifically, if you want to replicate this experiment, clone this repo and run `src/gather_data.py`. Feel free to tweak the constants before `main` in `gather_data` to your liking. If you choose to add any stratagems, I recommend implementing them in `src/stratagem.py`.
+
 
 ## Experimental Variables
 There are a few different variables that we can fix or change to influence how the outcomes of the games go.
