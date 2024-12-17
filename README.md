@@ -6,11 +6,9 @@ Running experiments on different algorithms to play the game [Buckshot Roulette]
 ## Experimental Variables
 There are a few different variables that we can fix or change to influence how the outcomes of the games go.
 
-`Fixed` variables do not change from experiment to experiment.
-
-`Not Implemented` variables do not impact the experiment at all because I haven't gotten around to implementing them.
-
-`Variable` variables change from experiment to experiment.
+- `Fixed` variables do not change from experiment to experiment.
+- `Not Implemented` variables do not impact the experiment at all because I haven't gotten around to implementing them.
+- `Variable` variables change from experiment to experiment.
 
 | Variable         | Description                                                          | Status            |
 | ---------------- | -------------------------------------------------------------------- | ----------------- |
@@ -44,11 +42,11 @@ This player will always shoot the opponent until it is sure that the gun only co
 ## Experiments to Run
 The following experiments will be run against every single pair of strategies outlined above. The experiment will continue for a fixed number of trials.
 
-| Experiment # | Completed?     | Load             | Number of Trials | Health |
-| ------------ | -------------- | ---------------- | ---------------- | ------ |
-| 1            | :red_circle:   | 4 Blank, 4 Live  | 100000           | 3      |
-| 2            | :green_circle: | 2 Blank, 4 Live  | 100000           | 3      |
-| 3            | :red_circle:   | 1 Blank, 4 Live  | 100000           | 3      |
-| 4            | :red_circle:   | 4 Blank, 4 Live  | 100000           | 5      |
-| 5            | :green_circle: | 2 Blank, 4 Live  | 100000           | 5      |
-| 6            | :red_circle:   | 1 Blank, 4 Live  | 100000           | 5      |
+| Experiment # | Load            | Number of Trials | Health | Completed?     |
+| ------------ | --------------- | ---------------- | ------ | -------------- |
+| 1            | 4 Blank, 4 Live | 100000           | 3      | :red_circle:   |
+| 2            | 2 Blank, 4 Live | 100000           | 3      | :red_circle:   |
+| 3            | 1 Blank, 4 Live | 100000           | 3      | :red_circle:   |
+| 4            | 4 Blank, 4 Live | 100000           | 5      | :red_circle:   |
+| 5            | 2 Blank, 4 Live | 100000           | 5      | :red_circle:   |
+| 6            | 1 Blank, 4 Live | 100000           | 5      | :red_circle:   |
