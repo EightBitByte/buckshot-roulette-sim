@@ -13,7 +13,9 @@ Running experiments on different algorithms to play the indie video game [Bucksh
     - When the shotgun runs out of shells, it is reloaded with a new load of shells identical to the previous load. 
     - Whomever a player shoots with a live shell takes a point of damage. Blank shells deal no damage. 
 - If a player chooses to fire upon themself and a blank is loaded, they do not end their turn. 
-- If a player fires a live shell or fires a blank at their opponent, the shooter ends their turn. 
+- A player ends their turn when they do one of two things:
+    1. Fire a blank shell at their opponent
+    2. Fire a live shell at their opponent or self
 - The game ends when a player has no more health points left, and the player left standing wins.
 
 ## Goal of Experiment
