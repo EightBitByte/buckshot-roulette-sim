@@ -2,12 +2,27 @@
 
 Running experiments on different algorithms to play the game [Buckshot Roulette](https://store.steampowered.com/app/2835570/Buckshot_Roulette/).
 
-## Basic Game Rules
+## How is Buckshot Roulette Played?
 Two players take turns shooting the shotgun at themselves or at their opponent. The shotgun is loaded with blank and live shells. When the shotgun runs out of shells, it is reloaded with a new load of shells. Whomever a player shoots with a live shell takes a point of damage. Blank shells deal no damage. If a player chooses to fire upon themself and a blank is loaded, they do not end their turn. If a player fires a live shell *regardless of the target*, or fires a blank at the opponent, the shooter ends their turn. The game ends when a player has no more health points left, and the player left standing wins.
 
-## About This Repository and How to Replicate
-All of the source code used to gather data is defined in `src`. More specifically, if you want to replicate this experiment, clone this repo and run `src/gather_data.py`. Feel free to tweak the constants before `main` in `gather_data` to your liking. If you choose to add any stratagems, I recommend implementing them in `src/stratagem.py`.
+## How to Use This Repo
+### Installation
+To install and run this repo to gather data for yourself, follow these steps:
 
+1. If not installed, install Python >=3.12
+2. Run `git clone https://github.com/EightBitByte/buckshot-roulette-sim.git`
+3. `cd` into this new directory
+4. Run `python -m venv venv`
+5. Activate the virtual environment (run `./venv/scripts/activate`)
+6. Run `pip install -r requirements.txt`
+
+From here, you can choose to implement your own stratagems in `src/stratagem.py` or alter the experiment variables in `src/gather.data.py`.
+
+### Gathering Data
+To gather data and plot on a graph:
+
+1. Run `python ./src/gather_data.py` to gather data per your experiments
+2. TBD
 
 ## Experimental Variables
 There are a few different variables that we can fix or change to influence how the outcomes of the games go.
@@ -25,7 +40,7 @@ There are a few different variables that we can fix or change to influence how t
 | Number of Trials | The number of games for the pair to play.                            | `Fixed`           |
 
 ## Strategies
-Each simulated player adopts a different strategy. Those implemented are highlighted below:
+Each simulated player adopts a different strategy. Those implemented are highlighted below.
 
 ### Greedy
 This player shoots the opponent if the shell in the chamber is more likely to be live. When the odds are even (50:50), this player will shoot itself in an effort to keep control of the gun (if the current shell is blank).
