@@ -82,9 +82,12 @@ def main() -> None:
                 new_match: Match = Match(experiment.num_blanks, experiment.num_lives, experiment.starting_health, strat_one(), strat_two())
                 wins += 1 if new_match.play() else 0
             
-            win_percentage: str = f'{(wins/NUM_TRIALS):.3f}'
-            result_dict['strats'][strat_one.__name__.lower()][strat_two.__name__.lower()] = win_percentage
-            result_dict['strats'][strat_two.__name__.lower()][strat_one.__name__.lower()] = win_percentage
+            win_percentage: float = (wins/NUM_TRIALS)
+
+            result_dict['strats'][strat_one.__name__.lower()][strat_two.__name__.lower()] = f'{win_percentage:0.3f}'
+
+            if strat_one is not strat_two:
+                result_dict['strats'][strat_two.__name__.lower()][strat_one.__name__.lower()] = f'{(1-win_percentage):0.3f}'
 
         _calculate_win_percentages(result_dict)
                 
@@ -97,8 +100,8 @@ def _calculate_win_percentages(result_dict: dict) -> None:
         Calculates the overall average win rates of the stratagems in 
         `result_dict`.
         """
-        overall_sum: float = 0.0
         for strat in STRATAGEMS:
+            overall_sum: float = 0.0
             for win_percentage in result_dict['strats'][strat.__name__.lower()].values():
                 overall_sum += float(win_percentage)
 
