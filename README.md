@@ -3,7 +3,7 @@
 Running experiments on different algorithms to play the game [Buckshot Roulette](https://store.steampowered.com/app/2835570/Buckshot_Roulette/).
 
 ## How is Buckshot Roulette Played?
-Two players take turns shooting the shotgun at themselves or at their opponent. The shotgun is loaded with blank and live shells. When the shotgun runs out of shells, it is reloaded with a new load of shells. Whomever a player shoots with a live shell takes a point of damage. Blank shells deal no damage. If a player chooses to fire upon themself and a blank is loaded, they do not end their turn. If a player fires a live shell *regardless of the target*, or fires a blank at the opponent, the shooter ends their turn. The game ends when a player has no more health points left, and the player left standing wins.
+Two players take turns shooting the shotgun at themselves or at their opponent. The shotgun is loaded with blank and live shells, in a sequence unknown to the players. However, the number of each type of shell is visible to both players. When the shotgun runs out of shells, it is reloaded with a new load of shells. Whomever a player shoots with a live shell takes a point of damage. Blank shells deal no damage. If a player chooses to fire upon themself and a blank is loaded, they do not end their turn. If a player fires a live shell *regardless of the target*, or fires a blank at the opponent, the shooter ends their turn. The game ends when a player has no more health points left, and the player left standing wins.
 
 ## How to Use This Repo
 ### Installation
@@ -17,6 +17,33 @@ To install and run this repo to gather data for yourself, follow these steps:
 6. Run `pip install -r requirements.txt`
 
 From here, you can choose to implement your own stratagems in `src/stratagem.py` or alter the experiment variables in `src/gather.data.py`.
+
+### Implementing a Stratagem
+
+In `src/stratagem.py`, you should define a class that inherits from the `Stratagem` base class. It should implement one function: `get_move`, which takes a `GameState` object and returns a `Move` object.
+
+The `GameState` object represents the simulated player counting the rounds in the gun; from this information, the simulated player should be able to make a decision.
+
+For instance, one could implement a `Stupid` stratagem that shoots itself when there are more live shells than blanks in the gun, like so:
+
+```python
+# src/stratagem.py
+
+class Stupid(Stratagem):
+    """
+    This player shoots itself when there are more lives in the gun than blanks,
+    and shoots the opponent when there are more blanks in the gun than lives.
+    """
+    def get_move(self, game_state: GameState) -> Move:
+        if (game_state.live_shells > game_state.blank_shells):
+            return Move.SHOOT_SELF
+        elif (game_state.live_shells < game_state.blank_shells):
+            return Move.SHOOT_OPPO
+        else:
+            return Move.SHOOT_SELF
+```
+
+As implemented in this repo, you should be able to run the code in `gather_data.py` and see your stratagem against the others implemented. If you want to test only a selection of stratagems, see line 26 in `gather_data.py`.
 
 ### Gathering Data
 To gather data and plot on a graph:

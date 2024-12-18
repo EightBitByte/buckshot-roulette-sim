@@ -23,6 +23,7 @@ class Experiment:
 # Modify these constants to change the testing parameters
 # BEGIN CONSTANTS =============================================================
 
+# Uncomment the line below and comment out lines 28-33 to select Stratagems
 # STRATAGEMS = [Greedy, Safe, Balanced, Random, Reckless, Scared]
 STRATAGEMS = list()
 
