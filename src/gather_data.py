@@ -1,17 +1,18 @@
 # gather_data.py
 # 
 # Gathers data by playing matches.
-from dataclasses import dataclass
-from pathlib import Path
 import stratagem as strat
 import json
-from datetime import datetime
-from time import time
-from inspect import getmembers, isclass
-from enum import Enum
-from tqdm import tqdm
 
+from dataclasses import dataclass
+from datetime import datetime
+from enum import Enum
 from game import Match
+from itertools import combinations_with_replacement
+from inspect import getmembers, isclass
+from pathlib import Path
+from time import time
+from tqdm import tqdm
 
 @dataclass
 class Experiment:
@@ -60,6 +61,8 @@ def main() -> None:
     current_time: str = datetime.fromtimestamp(time()).strftime('%H-%M')
     Path(f'{OUT_DIRECTORY}{day}/{current_time}').mkdir(parents=True, exist_ok=True)
 
+    match_pairs: list[tuple[strat.Stratagem, strat.Stratagem]] = list(combinations_with_replacement(STRATAGEMS, 2))
+
     for exp_num, experiment in enumerate(tqdm(EXPERIMENTS, 'Experiments')):
         result_dict: dict = dict()
         result_dict['params'] = {'blanks': experiment.num_blanks, 
@@ -68,25 +71,39 @@ def main() -> None:
                                  'trials': NUM_TRIALS}
         result_dict['strats'] = dict()
 
-        for strat in tqdm(STRATAGEMS, 'Strats', colour='blue', leave=False):
-            result_dict['strats'][strat.__name__.lower()] = dict()
-            for enemy_strat in tqdm(STRATAGEMS, f'{strat.__name__}', colour='green', leave=False):
-                wins: int = 0
-                for _ in tqdm(range(NUM_TRIALS), f'VS. {enemy_strat.__name__}', colour='red', leave=False):
-                    new_match: Match = Match(experiment.num_blanks, experiment.num_lives, experiment.starting_health, strat(), enemy_strat())
-                    wins += 1 if new_match.play() else 0
-                
-                result_dict['strats'][strat.__name__.lower()][enemy_strat.__name__.lower()] = f'{(wins/NUM_TRIALS):.3f}'
-            
-            overall_sum: float = 0.0
+        for strat_one, strat_two in tqdm(match_pairs, 'Pairings', colour='blue', leave=False):
+            if (strat_one.__name__.lower() not in result_dict['strats']):
+                result_dict['strats'][strat_one.__name__.lower()] = dict()
+            if (strat_two.__name__.lower() not in result_dict['strats']):
+                result_dict['strats'][strat_two.__name__.lower()] = dict()
 
+            wins: int = 0
+            for _ in tqdm(range(NUM_TRIALS), f'{strat_one.__name__} VS {strat_two.__name__}', colour='red', leave=False):
+                new_match: Match = Match(experiment.num_blanks, experiment.num_lives, experiment.starting_health, strat_one(), strat_two())
+                wins += 1 if new_match.play() else 0
+            
+            win_percentage: str = f'{(wins/NUM_TRIALS):.3f}'
+            result_dict['strats'][strat_one.__name__.lower()][strat_two.__name__.lower()] = win_percentage
+            result_dict['strats'][strat_two.__name__.lower()][strat_one.__name__.lower()] = win_percentage
+
+        _calculate_win_percentages(result_dict)
+                
+        with open(f'{OUT_DIRECTORY}{day}/{current_time}/experiment-{exp_num}.json', 'w+') as out_file:
+            json.dump(result_dict, out_file)
+
+
+def _calculate_win_percentages(result_dict: dict) -> None:
+        """
+        Calculates the overall average win rates of the stratagems in 
+        `result_dict`.
+        """
+        overall_sum: float = 0.0
+        for strat in STRATAGEMS:
             for win_percentage in result_dict['strats'][strat.__name__.lower()].values():
                 overall_sum += float(win_percentage)
 
             result_dict['strats'][strat.__name__.lower()]['overall'] = f'{(overall_sum/len(STRATAGEMS)):.3f}'
-                
-        with open(f'{OUT_DIRECTORY}{day}/{current_time}/experiment-{exp_num}.json', 'w+') as out_file:
-            json.dump(result_dict, out_file)
+
     
 if __name__ == '__main__':
     main()
