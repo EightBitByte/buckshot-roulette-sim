@@ -14,7 +14,7 @@ NAME_TO_ALG = {
     "balanced": Balanced,
     "rand": Random,
     "random": Random,
-    "risky": Risky,
+    "reckless": Reckless,
     "scared": Scared
 }
 

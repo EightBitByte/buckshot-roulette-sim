@@ -22,7 +22,7 @@ class Experiment:
 # Modify these constants to change the testing parameters
 # BEGIN CONSTANTS =============================================================
 
-# STRATAGEMS = [Greedy, Safe, Balanced, Random, Risky, Scared]
+# STRATAGEMS = [Greedy, Safe, Balanced, Random, Reckless, Scared]
 STRATAGEMS = list()
 
 # Import all stratagems from src/stratagem.py except base class and enums

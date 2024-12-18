@@ -93,7 +93,7 @@ class Random(Stratagem):
         return Move.SHOOT_OPPO if heads else Move.SHOOT_SELF
 
 
-class Risky(Stratagem):
+class Reckless(Stratagem):
     """
     Opposite of Scared. This player will always shoot itself until it is sure that the gun only 
     contains live shells.
@@ -107,7 +107,7 @@ class Risky(Stratagem):
 
 class Scared(Stratagem):
     """
-    Opposite of Risky. This player will always shoot the opponent until it is sure that the gun 
+    Opposite of Reckless. This player will always shoot the opponent until it is sure that the gun 
     only contains blank shells.
     """
 
