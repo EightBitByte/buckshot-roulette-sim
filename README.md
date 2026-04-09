@@ -99,6 +99,12 @@ This player plays the same as [Safe](#safe) until brought down to 1 HP. Then, it
 ### Overzealous :x:
 This player will play the same as [Reckless](#reckless) until brought down to 1 HP. Then, it plays like [Scared](#scared). A foil of [Conservative](#conservative).
 
+### Trigger-Happy :x:
+Always shoots the opponent.
+
+### Suicidal :x:
+Always shoots itself.
+
 ## Experiments to Run
 The following experiments will be run against every single pair of strategies outlined above. The experiment will continue for a fixed number of trials.
 
@@ -122,3 +128,7 @@ I defined a few terms in the context of this project that I refer to in this `RE
 | `load`        | A randomized sequence of shells consisting of an enumerated amount of blanks and lives. |
 | `match/trial` | A single game played between two simulated players.                                     |
 | `pairing`     | A unique pair of two stratagems.                                                        |
+
+## TODO
+- [ ] Implement a web-interface for this experiment
+    - [ ] Optionally add a game-ified version of this, where you can bet on odds and get a high-score?
