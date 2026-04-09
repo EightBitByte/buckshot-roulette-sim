@@ -94,8 +94,10 @@ Opposite of [Scared](#scared). This player will always shoot itself until it is 
 Opposite of [Reckless](#reckless). This player will always shoot the opponent until it is sure that the gun only contains blank shells.
 
 ### Conservative :x:
-This player plays the same as [Safe](#Safe) until brought down to 1 HP. Then, it plays like [Scared](#scared).
+This player plays the same as [Safe](#safe) until brought down to 1 HP. Then, it plays like [Scared](#scared). A foil of [Overzealous](#overzealous).
 
+### Overzealous :x:
+This player will play the same as [Reckless](#reckless) until brought down to 1 HP. Then, it plays like [Scared](#scared). A foil of [Conservative](#conservative).
 
 ## Experiments to Run
 The following experiments will be run against every single pair of strategies outlined above. The experiment will continue for a fixed number of trials.
