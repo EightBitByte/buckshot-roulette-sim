@@ -15,7 +15,10 @@ NAME_TO_ALG = {
     "rand": Random,
     "random": Random,
     "reckless": Reckless,
-    "scared": Scared
+    "scared": Scared,
+    "trigger": TriggerHappy,
+    "suicide": Suicidal,
+    "suicidal": Suicidal
 }
 
 if __name__ == '__main__':
