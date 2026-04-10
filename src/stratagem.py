@@ -1,7 +1,7 @@
 # stratagem.py
 #
 # Defines stratagems to play the game.
-from abc import ABC, abstractmethod
+from abc import ABC
 from enum import Enum
 from random import randint
 from dataclasses import dataclass
@@ -17,13 +17,13 @@ class Outcome(Enum):
     """Represents an outcome from any given move."""
     SHOOT_SELF_WITH_BLANK = 0
     SHOOT_SELF_WITH_LIVE = 1
-    SHOOT_OPPO_WITH_BLANK = 2
-    SHOOT_OPPO_WITH_LIVE = 3
+    SHOOT_OPP_WITH_BLANK = 2
+    SHOOT_OPP_WITH_LIVE = 3
 
 class Move(Enum):
     """Represents a possible move by a stratagem."""
     SHOOT_SELF = 0
-    SHOOT_OPPO = 1
+    SHOOT_OPP = 1
 
 
 class Stratagem(ABC):
@@ -41,7 +41,7 @@ class Greedy(Stratagem):
 
     def get_move(self, game_state: GameState) -> Move:
         if (game_state.live_shells > game_state.blank_shells):
-            return Move.SHOOT_OPPO
+            return Move.SHOOT_OPP
         elif (game_state.live_shells < game_state.blank_shells):
             return Move.SHOOT_SELF
         else:
@@ -57,11 +57,11 @@ class Safe(Stratagem):
 
     def get_move(self, game_state: GameState) -> Move:
         if (game_state.live_shells > game_state.blank_shells):
-            return Move.SHOOT_OPPO
+            return Move.SHOOT_OPP
         elif (game_state.live_shells < game_state.blank_shells):
             return Move.SHOOT_SELF
         else:
-            return Move.SHOOT_OPPO
+            return Move.SHOOT_OPP
         
 
 class Balanced(Stratagem):
@@ -74,12 +74,12 @@ class Balanced(Stratagem):
 
     def get_move(self, game_state: GameState) -> Move:
         if (game_state.live_shells > game_state.blank_shells):
-            return Move.SHOOT_OPPO
+            return Move.SHOOT_OPP
         elif (game_state.live_shells < game_state.blank_shells):
             return Move.SHOOT_SELF
         else:
             heads: bool = bool(randint(0 ,1))
-            return Move.SHOOT_OPPO if heads else Move.SHOOT_SELF
+            return Move.SHOOT_OPP if heads else Move.SHOOT_SELF
 
 
 class Random(Stratagem):
@@ -90,7 +90,7 @@ class Random(Stratagem):
 
     def get_move(self, game_state: GameState) -> Move:
         heads: bool = bool(randint(0, 1))
-        return Move.SHOOT_OPPO if heads else Move.SHOOT_SELF
+        return Move.SHOOT_OPP if heads else Move.SHOOT_SELF
 
 
 class Reckless(Stratagem):
@@ -102,7 +102,7 @@ class Reckless(Stratagem):
     def get_move(self, game_state: GameState) -> Move:
         if (game_state.blank_shells > 0):
             return Move.SHOOT_SELF
-        return Move.SHOOT_OPPO
+        return Move.SHOOT_OPP
 
 
 class Scared(Stratagem):
@@ -113,5 +113,23 @@ class Scared(Stratagem):
 
     def get_move(self, game_state: GameState) -> Move:
         if (game_state.live_shells > 0):
-            return Move.SHOOT_OPPO
+            return Move.SHOOT_OPP
+        return Move.SHOOT_SELF
+
+
+class TriggerHappy(Stratagem):
+    """
+    Always shoots the opponent.
+    """
+
+    def get_move(self, _: GameState) -> Move:
+        return Move.SHOOT_OPP
+
+
+class Suicidal(Stratagem):
+    """
+    Always shoots itself.
+    """
+
+    def get_move(self, _: GameState) -> Move:
         return Move.SHOOT_SELF
